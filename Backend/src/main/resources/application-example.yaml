@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/containerops
+    username: your_username
+    password: your_password
+
+server:
+  port: 8081
