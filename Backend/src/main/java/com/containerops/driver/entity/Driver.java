@@ -1,3 +1,5 @@
+package com.containerops.driver.entity;
+
 import com.containerops.driver.enums.DriverStatus;
 import jakarta.persistence.*;
 import lombok.*;

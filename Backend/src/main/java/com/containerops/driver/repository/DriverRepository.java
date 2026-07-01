@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-interface DriverRepository extends JpaRepository<Driver, Long> {
-    boolean existsByLicenseNumber(String licenseNumber);
-    boolean existsByPhoneNumber(String phoneNumber);
+public interface DriverRepository extends JpaRepository<Driver, Long> {
+        boolean existsByLicenseNumber(String licenseNumber);
+        boolean existsByPhoneNumber(String phoneNumber);
 
-    // Useful for fetching a driver specifically by their license
-    Optional<Driver> findByLicenseNumber(String licenseNumber);
-}
+        // Useful for fetching a driver specifically by their license
+        Optional<Driver> findByLicenseNumber(String licenseNumber);
+    }
