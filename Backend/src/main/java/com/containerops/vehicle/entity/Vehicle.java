@@ -24,7 +24,7 @@ public class Vehicle {
     private String licensePlate;
 
     @Column(name = "make", nullable = false)
-    private String make; // e.g., Tata, Ashok Leyland, Mahindra
+    private String make; 
 
     @Column(name = "model", nullable = false)
     private String model;
