@@ -8,6 +8,7 @@ import com.containerops.container.service.ContainerService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +20,7 @@ public class ContainerServiceImpl implements ContainerService {
     private final ContainerRepository containerRepository;
 
     @Override
+    @Transactional
     public ContainerResponseDto createContainer(ContainerRequestDto request) {
         if (containerRepository.existsByContainerNumber(request.getContainerNumber())) {
             throw new IllegalArgumentException("Container number already exists: " + request.getContainerNumber());
@@ -34,6 +36,7 @@ public class ContainerServiceImpl implements ContainerService {
     }
 
     @Override
+    @Transactional
     public ContainerResponseDto getContainerById(Long id) {
         Container container = containerRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Container not found with ID: " + id));
@@ -42,6 +45,7 @@ public class ContainerServiceImpl implements ContainerService {
     }
 
     @Override
+    @Transactional
     public List<ContainerResponseDto> getAllContainers() {
         return containerRepository.findAll()
                 .stream()
@@ -50,6 +54,7 @@ public class ContainerServiceImpl implements ContainerService {
     }
 
     @Override
+    @Transactional
     public ContainerResponseDto updateContainerStatus(Long id, com.containerops.container.enums.ContainerStatus status) {
         Container container = containerRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Container not found with ID: " + id));
@@ -61,6 +66,7 @@ public class ContainerServiceImpl implements ContainerService {
     }
 
     @Override
+    @Transactional
     public void deleteContainer(Long id) {
         if (!containerRepository.existsById(id)) {
             throw new EntityNotFoundException("Cannot delete. Container not found with ID: " + id);
@@ -68,6 +74,7 @@ public class ContainerServiceImpl implements ContainerService {
         containerRepository.deleteById(id);
     }
     @Override
+    @Transactional
     public ContainerResponseDto updateContainer(Long id, ContainerRequestDto request) {
         Container container = containerRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Container not found with ID: " + id));
@@ -86,7 +93,7 @@ public class ContainerServiceImpl implements ContainerService {
         Container updatedContainer = containerRepository.save(container);
         return mapToResponseDto(updatedContainer);
     }
-
+    
     // hlper method to map it
     private ContainerResponseDto mapToResponseDto(Container container) {
         return ContainerResponseDto.builder()

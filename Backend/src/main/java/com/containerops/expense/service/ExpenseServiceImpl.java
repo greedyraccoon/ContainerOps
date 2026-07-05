@@ -86,6 +86,13 @@ public class ExpenseServiceImpl implements ExpenseService {
         return mapToResponseDto(expenseRepository.save(expense));
     }
 
+    @Override
+    public List<ExpenseResponseDto> getAllExpenses() {
+        return expenseRepository.findAll().stream()
+                .map(this::mapToResponseDto)
+                .collect(Collectors.toList());
+    }
+
     private ExpenseResponseDto mapToResponseDto(Expense expense) {
         ExpenseResponseDto dto = new ExpenseResponseDto();
         dto.setId(expense.getId());

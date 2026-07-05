@@ -23,6 +23,11 @@ public class ExpenseController {
     public ResponseEntity<ExpenseResponseDto> logExpense(@Valid @RequestBody ExpenseRequestDto requestDto) {
         return new ResponseEntity<>(expenseService.logExpense(requestDto), HttpStatus.CREATED);
     }
+    
+    @GetMapping
+    public ResponseEntity<List<ExpenseResponseDto>> getAllExpenses() {
+        return ResponseEntity.ok(expenseService.getAllExpenses());
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ExpenseResponseDto> getExpenseById(@PathVariable Long id) {

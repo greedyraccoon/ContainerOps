@@ -51,9 +51,6 @@ public class Trip {
     private LocalDateTime estimatedDeliveryAt;
     private LocalDateTime actualDeliveryAt;
 
-    @Column(precision = 10, scale = 2)
     private Double startingOdometer;
-
-    @Column(precision = 10, scale = 2)
     private Double endingOdometer;
 }

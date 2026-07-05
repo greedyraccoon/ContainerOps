@@ -55,6 +55,12 @@ public class InvoiceServiceImpl implements InvoiceService {
         return mapToResponseDto(invoiceRepository.save(invoice));
     }
 
+    @Transactional
+    @Override
+    public List<Invoice> getAllInvoices() {
+        return invoiceRepository.findAll();
+    }
+
     @Override
     @Transactional(readOnly = true)
     public InvoiceResponseDto getInvoiceById(Long id) {

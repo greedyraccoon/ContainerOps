@@ -47,6 +47,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional
     public AuthResponseDto authenticate(LoginRequestDto request) {
         // This will check the password against the hashed database password
         authenticationManager.authenticate(

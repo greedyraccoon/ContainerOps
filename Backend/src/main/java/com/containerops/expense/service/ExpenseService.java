@@ -14,4 +14,5 @@ public interface ExpenseService {
     List<ExpenseResponseDto> getExpensesByTripId(Long tripId);
     ExpenseResponseDto updateExpenseDetails(Long id, ExpenseRequestDto requestDto);
     ExpenseResponseDto updateExpenseStatus(Long id, ExpenseStatus status);
+    List<ExpenseResponseDto> getAllExpenses();
 }

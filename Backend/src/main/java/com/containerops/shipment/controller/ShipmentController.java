@@ -2,6 +2,7 @@ package com.containerops.shipment.controller;
 
 import com.containerops.shipment.dto.ShipmentRequestDto;
 import com.containerops.shipment.dto.ShipmentResponseDto;
+import com.containerops.shipment.entity.Shipment;
 import com.containerops.shipment.enums.ShipmentStatus;
 import com.containerops.shipment.service.ShipmentService;
 import jakarta.validation.Valid;
@@ -22,6 +23,11 @@ public class ShipmentController {
     @PostMapping
     public ResponseEntity<ShipmentResponseDto> createShipment(@Valid @RequestBody ShipmentRequestDto requestDto) {
         return new ResponseEntity<>(shipmentService.createShipment(requestDto), HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Shipment>> getAllShipments() {
+        return ResponseEntity.ok(shipmentService.getAllShipments());
     }
 
     @GetMapping("/{id}")

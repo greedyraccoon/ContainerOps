@@ -2,6 +2,7 @@ package com.containerops.invoice.controller;
 
 import com.containerops.invoice.dto.InvoiceRequestDto;
 import com.containerops.invoice.dto.InvoiceResponseDto;
+import com.containerops.invoice.entity.Invoice;
 import com.containerops.invoice.enums.InvoiceStatus;
 import com.containerops.invoice.service.InvoiceService;
 import jakarta.validation.Valid;
@@ -22,6 +23,11 @@ public class InvoiceController {
     @PostMapping
     public ResponseEntity<InvoiceResponseDto> generateInvoice(@Valid @RequestBody InvoiceRequestDto requestDto) {
         return new ResponseEntity<>(invoiceService.generateInvoice(requestDto), HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Invoice>> getAllInvoices() {
+        return ResponseEntity.ok(invoiceService.getAllInvoices());
     }
 
     @GetMapping("/{id}")

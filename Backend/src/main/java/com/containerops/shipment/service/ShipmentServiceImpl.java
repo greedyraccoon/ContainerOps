@@ -9,7 +9,6 @@ import com.containerops.shipment.dto.ShipmentResponseDto;
 import com.containerops.shipment.entity.Shipment;
 import com.containerops.shipment.enums.ShipmentStatus;
 import com.containerops.shipment.repository.ShipmentRepository;
-import com.containerops.shipment.service.ShipmentService;
 import com.containerops.trip.entity.Trip;
 import com.containerops.trip.repository.TripRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -100,6 +99,12 @@ public class ShipmentServiceImpl implements ShipmentService {
 
         shipment.setStatus(status);
         return mapToResponseDto(shipmentRepository.save(shipment));
+    }
+
+    @Transactional
+    @Override
+    public List<Shipment> getAllShipments() {
+        return shipmentRepository.findAll();
     }
 
     private ShipmentResponseDto mapToResponseDto(Shipment shipment) {
