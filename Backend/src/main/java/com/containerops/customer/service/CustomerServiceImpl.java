@@ -84,7 +84,13 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.save(customer);
     }
 
-    // --- Helpers ---
+    @Transactional
+    @Override
+    public List<CustomerResponseDto> getAllCustomers() {
+        return customerRepository.findAll().stream()
+                .map(this::mapToResponseDto)
+                .collect(Collectors.toList());
+    }
 
     private void validateUniqueConstraints(CustomerRequestDto dto, Long currentCustomerId) {
         // If it's a new customer (ID is null) OR the email belongs to a different customer ID

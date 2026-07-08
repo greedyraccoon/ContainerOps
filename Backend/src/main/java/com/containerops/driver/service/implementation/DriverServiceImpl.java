@@ -69,6 +69,42 @@ public class DriverServiceImpl implements DriverService {
         return mapToResponseDto(driverRepository.save(driver));
     }
 
+    @Override
+    @Transactional
+    public DriverResponseDto updateDriver(Long id, DriverRequestDto request) {
+        // 1. Find the existing driver or throw a 404
+        Driver existingDriver = driverRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Driver not found with ID: " + id));
+
+        // 2. Update the fields with the new data from the DTO
+        existingDriver.setFirstName(request.getFirstName());
+        existingDriver.setLastName(request.getLastName());
+        existingDriver.setLicenseNumber(request.getLicenseNumber());
+        existingDriver.setPhoneNumber(request.getPhoneNumber());
+
+        // 3. Save the updated entity back to the database
+        Driver updatedDriver = driverRepository.save(existingDriver);
+
+        // 4. Map it back to a ResponseDto and return (Use your existing mapper logic here)
+        return DriverResponseDto.builder()
+                .id(updatedDriver.getId())
+                .firstName(updatedDriver.getFirstName())
+                .lastName(updatedDriver.getLastName())
+                .licenseNumber(updatedDriver.getLicenseNumber())
+                .phoneNumber(updatedDriver.getPhoneNumber())
+                .status(updatedDriver.getStatus())
+                .createdAt(updatedDriver.getCreatedAt())
+                .build();
+    }
+
+    @Override
+    @Transactional
+    public void deleteDriver(Long id) {
+        Driver existingDriver = driverRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Driver not found with ID: " + id));
+        driverRepository.delete(existingDriver);
+    }
+
     // Helper method to keep mapping clean without needing an external library yet
     private DriverResponseDto mapToResponseDto(Driver driver) {
         return DriverResponseDto.builder()

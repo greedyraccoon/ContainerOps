@@ -11,4 +11,5 @@ public interface CustomerService {
     List<CustomerResponseDto> getAllActiveCustomers();
     CustomerResponseDto updateCustomerDetails(Long id, CustomerRequestDto requestDto);
     void toggleCustomerStatus(Long id, boolean isActive);
+    List<CustomerResponseDto> getAllCustomers();
 }

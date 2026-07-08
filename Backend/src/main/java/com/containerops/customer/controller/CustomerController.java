@@ -28,9 +28,15 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.getCustomerById(id));
     }
 
-    @GetMapping
+
+    @GetMapping("/active")
     public ResponseEntity<List<CustomerResponseDto>> getAllActiveCustomers() {
         return ResponseEntity.ok(customerService.getAllActiveCustomers());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CustomerResponseDto>> getAllCustomers() {
+        return ResponseEntity.ok(customerService.getAllCustomers());
     }
 
     @PutMapping("/{id}")

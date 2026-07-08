@@ -20,7 +20,7 @@ public class Container {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "container_number", nullable = false, unique = true, length = 11)
+    @Column(name = "container_number", nullable = false, unique = true)
     private String containerNumber;
 
     @Enumerated(EnumType.STRING)
