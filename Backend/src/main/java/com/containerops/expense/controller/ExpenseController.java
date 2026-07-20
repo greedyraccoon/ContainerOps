@@ -53,4 +53,10 @@ public class ExpenseController {
             @RequestParam ExpenseStatus status) {
         return ResponseEntity.ok(expenseService.updateExpenseStatus(id, status));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteExpense(@PathVariable Long id) {
+        expenseService.deleteExpense(id);
+        return ResponseEntity.noContent().build();
+    }
 }

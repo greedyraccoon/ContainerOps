@@ -15,4 +15,5 @@ public interface ExpenseService {
     ExpenseResponseDto updateExpenseDetails(Long id, ExpenseRequestDto requestDto);
     ExpenseResponseDto updateExpenseStatus(Long id, ExpenseStatus status);
     List<ExpenseResponseDto> getAllExpenses();
+    void deleteExpense(Long id);
 }

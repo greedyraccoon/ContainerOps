@@ -107,6 +107,40 @@ public class ShipmentServiceImpl implements ShipmentService {
         return shipmentRepository.findAll();
     }
 
+
+    @Override
+    @Transactional
+    public ShipmentResponseDto updateShipment(Long id, ShipmentRequestDto requestDto) {
+        // 1. Fetch existing shipment records or fail early
+        Shipment existingShipment = shipmentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Shipment not found with ID: " + id));
+
+        // 2. Fetch required relational objects using their database IDs
+        Customer customer = customerRepository.findById(requestDto.getCustomerId())
+                .orElseThrow(() -> new RuntimeException("Customer not found with ID: " + requestDto.getCustomerId()));
+        Container container = containerRepository.findById(requestDto.getContainerId())
+                .orElseThrow(() -> new RuntimeException("Container not found with ID: " + requestDto.getContainerId()));
+
+        // 3. Map new incoming request data over the entity managed records
+        existingShipment.setCustomer(customer);
+        existingShipment.setContainer(container);
+        existingShipment.setShippingLine(requestDto.getShippingLine());
+        existingShipment.setBlNumber(requestDto.getBlNumber());
+        existingShipment.setDirection(requestDto.getDirection());
+        existingShipment.setOrigin(requestDto.getOrigin());
+        existingShipment.setDestination(requestDto.getDestination());
+        existingShipment.setEtd(requestDto.getEtd());
+        existingShipment.setEta(requestDto.getEta());
+
+        // 4. Commit managed entity state back down into database
+        Shipment savedShipment = shipmentRepository.save(existingShipment);
+
+        // 5. Use your private mapping method to format the response payload
+        return mapToResponseDto(savedShipment);
+    }
+
+
+
     private ShipmentResponseDto mapToResponseDto(Shipment shipment) {
         ShipmentResponseDto dto = new ShipmentResponseDto();
         dto.setId(shipment.getId());

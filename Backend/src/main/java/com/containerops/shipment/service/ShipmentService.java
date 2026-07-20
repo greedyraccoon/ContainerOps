@@ -15,4 +15,5 @@ public interface ShipmentService {
     ShipmentResponseDto assignShipmentToTrip(Long shipmentId, Long tripId);
     ShipmentResponseDto updateShipmentStatus(Long id, ShipmentStatus status);
     List<Shipment> getAllShipments();
+    ShipmentResponseDto updateShipment(Long id, ShipmentRequestDto requestDto);
 }

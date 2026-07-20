@@ -43,6 +43,14 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
+    @Transactional
+    public void deleteExpense(Long id) {
+        Expense expense = expenseRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Expense log not found with ID: " + id));
+        expenseRepository.delete(expense);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public ExpenseResponseDto getExpenseById(Long id) {
         Expense expense = expenseRepository.findById(id)
