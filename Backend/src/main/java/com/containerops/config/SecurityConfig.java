@@ -63,6 +63,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/vehicles/**", "/api/v1/drivers/**", "/api/v1/containers/**", "/api/v1/customers/**")
                         .hasRole("ADMIN")
                         // 8. Fallback Safety Net
+                        .requestMatchers("/api/v1/auth/login").permitAll()
+                        // Strictly require ADMIN role to create/register new users
+                        .requestMatchers("/api/v1/auth/register").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
